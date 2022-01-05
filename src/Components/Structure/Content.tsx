@@ -12,6 +12,7 @@ import { ReactComponent as BuildIllustration } from "assets/build-illustration.s
 import { ReactComponent as PublishIllustration } from "assets/publish-illustration.svg";
 import { ReactComponent as RunIllustration } from "assets/run-illustration.svg";
 import daBee from "assets/daBee.png";
+import VideoTileCTA from "assets/Video-Tile.png";
 import { ReactComponent as BeePathBuildToPub } from "assets/bee-path1.svg";
 import { ReactComponent as BeePathPubToRun } from "assets/bee-path2.svg";
 import { Footer } from "Components/Structure/Footer";
@@ -371,7 +372,7 @@ const videoPromptHoverBackground = keyframes`
 const VideoRowImageArrowCover = styled.div`
   position: absolute;
   top: 0;
-  bottom: 0;
+  bottom: 5px;
   right: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.3);
@@ -543,16 +544,11 @@ export const Content = () => {
         <VideoRow>
           <VideoRowWording>
             <BottomRowTitle>Get Started</BottomRowTitle>Getting started with
-            Bumblebee is easy. Take a look at this Quick Start video to simplify
+            BumbleBee is easy. Take a look at this Quick Start video to simplify
             your eBPF programming experience.
           </VideoRowWording>
           <VideoRowImageHolder>
-            <img
-              alt=""
-              src={
-                "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-2000w,f_auto,q_auto:best/newscms/2019_21/2870431/190524-classic-american-cheeseburger-ew-207p.jpg"
-              }
-            />
+            <img alt="" src={VideoTileCTA} />
 
             <VideoRowImageArrowCover onClick={openVideo}>
               <VideoPlayArrow />
@@ -573,7 +569,7 @@ export const Content = () => {
             <iframe
               width="560"
               height="315"
-              src="https://www.youtube.com/embed/lwwjjWPgTE4"
+              src="https://www.youtube.com/embed/4js-blTUV1Q"
               title="YouTube video player"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
