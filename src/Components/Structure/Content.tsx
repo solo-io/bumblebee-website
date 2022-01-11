@@ -15,9 +15,10 @@ import daBee from "assets/daBee.png";
 import VideoTileCTA from "assets/Video-Tile.png";
 import { ReactComponent as BeePathBuildToPub } from "assets/bee-path1.svg";
 import { ReactComponent as BeePathPubToRun } from "assets/bee-path2.svg";
-import { Footer } from "Components/Structure/Footer";
+import { Footer, PossibleLanguages } from "Components/Structure/Footer";
 import { ExternalSoloLink } from "Components/Common/SoloLink";
 import { hslToHSLA } from "Styles/colors";
+import { SiteContentByLanguage } from "languages";
 
 const ContentBody = styled.div`
   margin: 0 auto;
@@ -130,12 +131,6 @@ const BannerSVGs = styled.div`
   }
 `;
 
-const BannerTitle = styled.div`
-  font-size: 32px;
-  line-height: 39px;
-  font-weight: 500;
-  margin-bottom: 8px;
-`;
 const BannerDescription = styled.div`
   font-size: 22px;
   line-height: 28px;
@@ -149,13 +144,6 @@ const Bottom = styled.div`
     padding-bottom: 30px;
   }
 `;
-const CloudBgkdHolder = styled.div`
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  right: 0;
-`;
-
 const BottomRow = styled.div`
   position: relative;
   width: 100%;
@@ -447,6 +435,7 @@ const VideoModalCloser = styled.div`
 `;
 
 export const Content = () => {
+  const [languageUsed, setLanguageUsed] = useState<PossibleLanguages>("EN");
   const [videoShowing, setVideoShowing] = useState(false);
 
   const openVideo = () => {
@@ -470,7 +459,7 @@ export const Content = () => {
             href={"https://github.com/solo-io/bumblebee"}
             displayElement={
               <SoloButtonStyledComponent>
-                View on Github
+                {SiteContentByLanguage[languageUsed].GithubButton}
               </SoloButtonStyledComponent>
             }
             newTab={true}
@@ -479,10 +468,7 @@ export const Content = () => {
         <Banner>
           <BannerContent>
             <BannerDescription>
-              BumbleBee simplifies building eBPF tools and allows you to
-              package, distribute, and run them anywhere. Just focus on the eBPF
-              portion of your code and BumbleBee automates away the boilerplate,
-              including the userspace code.
+              {SiteContentByLanguage[languageUsed].BannerDescription}
               <BannerSVGs>
                 <EBPFLogo />
                 <LinuxLogo />
@@ -496,26 +482,22 @@ export const Content = () => {
               <BuildIllustration />
             </BottomRowImageHolder>
             <BottomRowWording>
-              <BottomRowTitle>Build</BottomRowTitle>
-              <div>
-                Getting the eBPF tool chain “just right” is hard. BumbleBee
-                automates the build process and lets you focus on the code.
-                BumbleBee packages your eBPF code as an OCI image so you can
-                distribute it across your infrastructure.
-              </div>
+              <BottomRowTitle>
+                {SiteContentByLanguage[languageUsed].BuildTitle}
+              </BottomRowTitle>
+              <div>{SiteContentByLanguage[languageUsed].BuildDescription}</div>
             </BottomRowWording>
 
             <BeePathBuildToPub className={"beePath1"} />
-            <img src={daBee} className="daBee" />
+            <img src={daBee} alt="a little bee" className="daBee" />
           </BottomRow>
           <BottomRow className="imageRightSide">
             <BottomRowWording className="furtherUpOnMobile">
-              <BottomRowTitle>Publish</BottomRowTitle>
+              <BottomRowTitle>
+                {SiteContentByLanguage[languageUsed].PublishTitle}
+              </BottomRowTitle>
               <div>
-                Leveraging BTF and OCI packaging, the eBPF code you write with
-                BumbleBee is portable and can plug into existing publishing
-                workflows. Push and pull your eBPF code to any OCI compliant
-                registry to publish to other users.
+                {SiteContentByLanguage[languageUsed].PublishDescription}
               </div>
             </BottomRowWording>
             <BottomRowImageHolder className="leftPaddedImage">
@@ -529,13 +511,10 @@ export const Content = () => {
               <RunIllustration />
             </BottomRowImageHolder>
             <BottomRowWording className="furtherUpOnMobile">
-              <BottomRowTitle>Run</BottomRowTitle>
-              <div>
-                With BumbleBee, you focus on your eBPF code and run it anywhere.
-                BumbleBee also builds the userspace code and can expose the eBPF
-                maps as logs, metrics, and histograms. BumbleBee leverages BTF
-                introspection to know what types to display.
-              </div>
+              <BottomRowTitle>
+                {SiteContentByLanguage[languageUsed].RunTitle}
+              </BottomRowTitle>
+              <div>{SiteContentByLanguage[languageUsed].RunDescription}</div>
             </BottomRowWording>
           </BottomRow>
         </Bottom>
@@ -543,9 +522,10 @@ export const Content = () => {
       <VideoRowArea>
         <VideoRow>
           <VideoRowWording>
-            <BottomRowTitle>Get Started</BottomRowTitle>Getting started with
-            BumbleBee is easy. Take a look at this Quick Start video to simplify
-            your eBPF programming experience.
+            <BottomRowTitle>
+              {SiteContentByLanguage[languageUsed].VideoTitle}
+            </BottomRowTitle>
+            {SiteContentByLanguage[languageUsed].VideoDescription}
           </VideoRowWording>
           <VideoRowImageHolder>
             <img alt="" src={VideoTileCTA} />
@@ -556,7 +536,10 @@ export const Content = () => {
           </VideoRowImageHolder>
         </VideoRow>
       </VideoRowArea>
-      <Footer />
+      <Footer
+        languageUsed={languageUsed}
+        switchLanguageUsed={setLanguageUsed}
+      />
 
       {videoShowing && (
         <VideoModalWindow>

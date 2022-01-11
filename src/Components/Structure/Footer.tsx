@@ -9,6 +9,8 @@ import { ReactComponent as UpArrowIcon } from "assets/Arrow.svg";
 import { colors, soloConstants } from "Styles";
 //import { HubspotNewsletter } from "./HubspotNewsletter";
 
+export type PossibleLanguages = "EN" | "ZH";
+
 export const footerHeight = 240;
 const FooterContainer = styled.div`
   margin: 0 auto;
@@ -126,12 +128,6 @@ const CopyrightText = styled.a`
   margin-top: 15px;
 `;
 
-const Tagline = styled.div`
-  align-content: flex-start;
-  font-size: 10px;
-  text-align: left;
-`;
-
 const IconContainer = styled.a`
   display: flex;
   align-items: center;
@@ -159,9 +155,42 @@ const UpArrowHolder = styled.div`
   }
 `;
 
-export const Footer = () => {
+const LanguageToggle = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+
+  > div {
+    margin-right: 20px;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+
+    &.beingUsed {
+      color: ${colors.seaBlue};
+      border-bottom-color: ${colors.seaBlue};
+      cursor: default;
+    }
+  }
+`;
+
+export const Footer = ({
+  languageUsed,
+  switchLanguageUsed,
+}: {
+  languageUsed: PossibleLanguages;
+  switchLanguageUsed: (languageName: PossibleLanguages) => any;
+}) => {
   const returnToTop = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  };
+
+  const useEnglish = () => {
+    switchLanguageUsed("EN");
+  };
+  const useZh = () => {
+    switchLanguageUsed("ZH");
   };
 
   return (
@@ -190,7 +219,10 @@ export const Footer = () => {
             >
               <YoutubeIcon />
             </IconContainer>
-            <IconContainer href="https://slack.solo.io/" target="_blank">
+            <IconContainer
+              href="https://slack.solo.io/#bumblebee"
+              target="_blank"
+            >
               <SlackIcon />
             </IconContainer>
             <IconContainer href="https://github.com/solo-io" target="_blank">
@@ -201,24 +233,37 @@ export const Footer = () => {
       </Links>
       <Bottom>
         <Copyright>
+          <LanguageToggle>
+            <div
+              className={languageUsed === "EN" ? "beingUsed" : ""}
+              onClick={useEnglish}
+            >
+              English
+            </div>{" "}
+            <div
+              className={languageUsed === "ZH" ? "beingUsed" : ""}
+              onClick={useZh}
+            >
+              中文
+            </div>
+          </LanguageToggle>
           © {new Date().getFullYear()} solo.io, Inc. All Rights Reserved.
           <div>
             <CopyrightLink
-              href="https://www.solo.io/privacy-policy"
+              href="https://www.solo.io/privacy-policy/"
               target="_blank"
             >
               privacy policy
             </CopyrightLink>
             <CopyrightText>|</CopyrightText>
             <CopyrightLink
-              href="https://www.solo.io/privacy-policy"
+              href="https://www.solo.io/terms-of-service/"
               target="_blank"
             >
               terms of use
             </CopyrightLink>
           </div>
         </Copyright>
-
         <UpArrowHolder>
           <UpArrowIcon onClick={returnToTop} />
         </UpArrowHolder>
