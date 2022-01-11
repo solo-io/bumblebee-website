@@ -7,7 +7,7 @@ import { ReactComponent as TwitterIcon } from "assets/social/twitter-icon-greysc
 import { ReactComponent as YoutubeIcon } from "assets/social/youtube-icon-greyscale.svg";
 import { ReactComponent as UpArrowIcon } from "assets/Arrow.svg";
 import { colors, soloConstants } from "Styles";
-//import { HubspotNewsletter } from "./HubspotNewsletter";
+import { useParams, useNavigate } from "react-router-dom";
 
 export type PossibleLanguages = "EN" | "ZH";
 
@@ -175,22 +175,22 @@ const LanguageToggle = styled.div`
   }
 `;
 
-export const Footer = ({
-  languageUsed,
-  switchLanguageUsed,
-}: {
+export interface ParamTypes {
   languageUsed: PossibleLanguages;
-  switchLanguageUsed: (languageName: PossibleLanguages) => any;
-}) => {
+}
+export const Footer = () => {
+  const { languageUsed } = useParams<keyof ParamTypes>() as ParamTypes;
+  const navigate = useNavigate();
+
   const returnToTop = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   };
 
   const useEnglish = () => {
-    switchLanguageUsed("EN");
+    navigate("/EN", { replace: true });
   };
   const useZh = () => {
-    switchLanguageUsed("ZH");
+    navigate("/ZH", { replace: true });
   };
 
   return (

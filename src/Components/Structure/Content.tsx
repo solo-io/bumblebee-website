@@ -15,10 +15,15 @@ import daBee from "assets/daBee.png";
 import VideoTileCTA from "assets/Video-Tile.png";
 import { ReactComponent as BeePathBuildToPub } from "assets/bee-path1.svg";
 import { ReactComponent as BeePathPubToRun } from "assets/bee-path2.svg";
-import { Footer, PossibleLanguages } from "Components/Structure/Footer";
+import {
+  Footer,
+  ParamTypes,
+  PossibleLanguages,
+} from "Components/Structure/Footer";
 import { ExternalSoloLink } from "Components/Common/SoloLink";
 import { hslToHSLA } from "Styles/colors";
 import { SiteContentByLanguage } from "languages";
+import { useParams } from "react-router-dom";
 
 const ContentBody = styled.div`
   margin: 0 auto;
@@ -435,7 +440,10 @@ const VideoModalCloser = styled.div`
 `;
 
 export const Content = () => {
-  const [languageUsed, setLanguageUsed] = useState<PossibleLanguages>("EN");
+  const { languageUsed } = useParams<keyof ParamTypes>() as ParamTypes;
+
+  console.log(languageUsed);
+
   const [videoShowing, setVideoShowing] = useState(false);
 
   const openVideo = () => {
@@ -536,10 +544,7 @@ export const Content = () => {
           </VideoRowImageHolder>
         </VideoRow>
       </VideoRowArea>
-      <Footer
-        languageUsed={languageUsed}
-        switchLanguageUsed={setLanguageUsed}
-      />
+      <Footer />
 
       {videoShowing && (
         <VideoModalWindow>
